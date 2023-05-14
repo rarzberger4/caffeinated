@@ -20,7 +20,7 @@ import com.example.caffeinated.ui.theme.CaffeinatedTheme
 import android.content.Context
 import android.util.Log
 import androidx.compose.ui.platform.LocalContext
-
+import com.example.caffeinated.data.Recipe
 
 
 class MainActivity : ComponentActivity() {
@@ -47,16 +47,16 @@ fun HomeScreen(){
 
 
 
-//                        val rr = RecipeRepo.getInstance(RecipeDatabase.getDatabase(LocalContext.current).recipeDao())
-//                        rr.getAllRecipes()
-//
-//                        Log.d("TEST", rr.getById(1).toString())
-//
-//                        LazyColumn(){
-//                            rr.getById(1)
-//                        }
+                        val rr = RecipeRepo.getInstance(RecipeDatabase.getDatabase(LocalContext.current).recipeDao())
+                        rr.getAllRecipes()
 
-            Greeting("Android")
+                        Log.d("TEST", rr.getById(1).toString())
+
+                        val recipe = rr.getById(1)
+
+
+
+            Greeting(recipe.toString())
 
 
 
