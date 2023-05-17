@@ -1,4 +1,4 @@
-package com.example.caffeinated.data
+package com.example.caffeinated.utils
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

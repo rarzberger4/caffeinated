@@ -8,6 +8,9 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import com.example.caffeinated.models.Recipe
+import com.example.caffeinated.utils.CustomConverters
+import com.example.caffeinated.workers.SeedDatabaseWorker
 
 
 @Database(

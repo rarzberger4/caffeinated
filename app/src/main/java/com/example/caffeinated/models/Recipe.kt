@@ -1,4 +1,4 @@
-package com.example.caffeinated.data
+package com.example.caffeinated.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
