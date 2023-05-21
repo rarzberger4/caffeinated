@@ -14,7 +14,11 @@ import com.example.caffeinated.data.RecipeDatabase
 import com.example.caffeinated.repositories.RecipeRepo
 import com.example.caffeinated.ui.theme.CaffeinatedTheme
 import android.util.Log
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.caffeinated.viewmodels.RecipiesViewModel
+import com.example.caffeinated.viewmodels.RecipiesViewModelFactory
 
 
 class MainActivity : ComponentActivity() {
@@ -37,10 +41,16 @@ fun HomeScreen() {
         ) {
 
             val rr = RecipeRepo.getInstance(RecipeDatabase.getDatabase(LocalContext.current).recipeDao())
-            rr.getAllRecipes()
-            Log.d("TEST", rr.getById(1).toString())
-            val recipe = rr.getById(1)
-            Greeting(recipe.toString())
+            val factory = RecipiesViewModelFactory(rr)
+            val viewModel: RecipiesViewModel = viewModel(factory = factory)
+            val taskstate = viewModel.recipeListState.collectAsState()
+
+            //val coroutineScope = rememberCoroutineScope()
+
+
+
+
+            Greeting(taskstate.value.toString())
         }
     }
 }
