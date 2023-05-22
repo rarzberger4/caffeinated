@@ -90,7 +90,7 @@ fun RecipeList(recipeList: List<Recipe>) {
                     modifier = Modifier.padding(bottom = 4.dp)
                 )
                 Text(
-                    text = "Manual ${recipe.manual}",
+                    text = "Manual: ${recipe.manual}",
                     style = TextStyle(fontSize = 16.sp),
                     modifier = Modifier.padding(bottom = 4.dp)
                 )
