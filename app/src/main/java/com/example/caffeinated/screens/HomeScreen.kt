@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -44,9 +45,18 @@ fun HomeScreen(navController: NavController = rememberNavController()) {
             val taskstate = viewModel.recipeListState.collectAsState()
 
             //val coroutineScope = rememberCoroutineScope()
+            Column(
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Button(
+                    onClick = { navController.navigate(Screen.InfoScreen.route) },
+                    modifier = Modifier.padding(bottom = 8.dp)
+                ) {
+                    Text("Go to Info Screen")
+                }
 
-
-            RecipeList(recipeList = taskstate.value)
+                RecipeList(recipeList = taskstate.value)
+            }
         }
     }
 }
