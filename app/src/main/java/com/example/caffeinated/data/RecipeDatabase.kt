@@ -15,7 +15,7 @@ import com.example.caffeinated.workers.SeedDatabaseWorker
 
 @Database(
     entities = [Recipe::class],  // tables in the db
-    version = 1,                // version of db schema
+    version = 2,                // version of db schema
     exportSchema = false        // for schema version history updates
 )
 @TypeConverters(CustomConverters::class)
