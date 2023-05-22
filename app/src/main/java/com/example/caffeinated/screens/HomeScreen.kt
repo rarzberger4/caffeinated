@@ -1,7 +1,9 @@
 package com.example.caffeinated.screens
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -47,12 +49,16 @@ fun HomeScreen(navController: NavController = rememberNavController()) {
             Column(
                 modifier = Modifier.padding(16.dp)
             ) {
-                Button(
-                    onClick = { navController.navigate(Screen.InfoScreen.route) },
-                    modifier = Modifier.padding(bottom = 8.dp)
-                ) {
-                    Text("Go to Info Screen")
+
+                Row() {
+                    Button(
+                        onClick = { navController.navigate(Screen.InfoScreen.route) },
+                        modifier = Modifier.padding(bottom = 8.dp).fillMaxWidth()
+                    ) {
+                        Text("InfoScreen")
+                    }
                 }
+
 
                 RecipeList(recipeList = taskstate.value)
             }
