@@ -21,6 +21,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.unit.dp
@@ -45,8 +46,7 @@ fun InfoScreen(navController: NavController = rememberNavController()) {
             color = MaterialTheme.colorScheme.background
         ) {
             LazyColumn(
-                modifier = Modifier.padding(16.dp),
-                contentPadding = PaddingValues(vertical = 16.dp)
+                modifier = Modifier.padding(16.dp)
             ) {
                 item {
                     Row(modifier = Modifier.fillMaxWidth()) {
@@ -92,6 +92,7 @@ fun InfoScreen(navController: NavController = rememberNavController()) {
                         Image(
                             painter = rememberAsyncImagePainter("https://images.immediate.co.uk/production/volatile/sites/30/2020/08/cappucino-32dbfba.jpg"),
                             contentDescription = "Coffee Image 1",
+                            contentScale = ContentScale.Crop,
                             modifier = Modifier.fillMaxSize()
                         )
                     }
@@ -110,7 +111,9 @@ fun InfoScreen(navController: NavController = rememberNavController()) {
                         Image(
                             painter = rememberAsyncImagePainter("https://images.immediate.co.uk/production/volatile/sites/30/2020/08/flat-white-3402c4f.jpg"),
                             contentDescription = "Coffee Image 2",
+                            contentScale = ContentScale.Crop,
                             modifier = Modifier.fillMaxSize()
+
                         )
                     }
 
@@ -123,17 +126,25 @@ fun InfoScreen(navController: NavController = rememberNavController()) {
                 }
 
                 item {
-                    // Add YouTube video
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp)
-                    ) {
-                        YoutubeScreen(
-                            videoId = youtubeVideoId,
-                            modifier = Modifier.fillMaxSize()
-                        )
+                    Column() {
+                        Text(text = "History of Coffee",
+                            style = MaterialTheme.typography.headlineSmall,
+                            modifier = Modifier.padding(horizontal = 8.dp))
+
+                        // Add YouTube video
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp)
+                        ) {
+                            YoutubeScreen(
+                                videoId = youtubeVideoId,
+                                modifier = Modifier.fillMaxSize()
+                            )
+                        }
+
                     }
+
                 }
             }
         }
