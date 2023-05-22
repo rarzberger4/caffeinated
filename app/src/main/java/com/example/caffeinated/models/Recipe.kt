@@ -18,6 +18,9 @@ data class Recipe(
     val rating: Double = 0.0,
     val comments: List<String>,
     var isFavorite: Boolean = false
+//roasting level
+//origin
+//ingredients
 ){
     override fun equals(other: Any?): Boolean {
         return super.equals(other)
