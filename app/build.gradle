@@ -89,4 +89,12 @@ dependencies {
 
     // Workers
     implementation 'androidx.work:work-runtime-ktx:2.5.0'
+
+    // Youtube
+    dependencies {
+        implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.0.0'
+    }
+
+
+
 }
