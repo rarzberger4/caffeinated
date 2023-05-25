@@ -60,7 +60,7 @@ fun HomeScreen(navController: NavController = rememberNavController()) {
                 }
 
 
-                RecipeList(recipeList = taskstate.value)
+                RecipeList(recipeList = taskstate.value, navController)
             }
         }
     }
@@ -68,7 +68,7 @@ fun HomeScreen(navController: NavController = rememberNavController()) {
 
 
 @Composable
-fun RecipeList(recipeList: List<Recipe>) {
+fun RecipeList(recipeList: List<Recipe>, navController: NavController) {
     LazyColumn {
         items(items = recipeList) { recipe ->
             Column(
@@ -78,6 +78,8 @@ fun RecipeList(recipeList: List<Recipe>) {
                     text = recipe.title,
                     style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp),
                     modifier = Modifier.padding(bottom = 8.dp)
+
+
                 )
                 Text(
                     text = "Year: ${recipe.year}",

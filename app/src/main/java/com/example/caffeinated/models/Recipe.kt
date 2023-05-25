@@ -16,7 +16,7 @@ data class Recipe(
     val manual: String = "No plot available",
     val images: List<String> = listOf(),
     val rating: Double = 0.0,
-    val comments: List<String>,
+    val comments: List<String> = listOf(),
     var isFavorite: Boolean = false,
     val roastinglvl: Int = 0,
     val origin: String = "",
