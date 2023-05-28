@@ -24,21 +24,31 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.caffeinated.data.RecipeDatabase
 import com.example.caffeinated.models.Recipe
 import com.example.caffeinated.repositories.RecipeRepo
-import com.example.caffeinated.viewmodels.RecipesDetailViewModel
+import com.example.caffeinated.viewmodels.RecipeDetailViewModel
+import com.example.caffeinated.viewmodels.RecipeDetailViewModelFactory
 import com.example.caffeinated.viewmodels.RecipiesViewModelFactory
+import com.example.caffeinated.widgets.RecipeRow
 import kotlinx.coroutines.launch
 
 @Composable
 fun DetailScreen(navController: NavController, recipeID:Long?){
 
     recipeID?.let {
-        val viewModel: RecipesDetailViewModel = viewModel(factory = RecipiesViewModelFactory(RecipeRepo.getInstance(
-            RecipeDatabase.getDatabase(LocalContext.current).recipeDao())))
+
+
+        val rr = RecipeRepo.getInstance(
+            RecipeDatabase.getDatabase(LocalContext.current).recipeDao()
+        )
+
+        val factory = RecipeDetailViewModelFactory(rr, recipeID)
+        val viewModel: RecipeDetailViewModel = viewModel(factory = factory)
         val recipe = viewModel.recipeState.collectAsState()
+
+
+
 
         val coroutineScope = rememberCoroutineScope()
         val scaffoldState = rememberScaffoldState() // this contains the `SnackbarHostState`
@@ -48,7 +58,9 @@ fun DetailScreen(navController: NavController, recipeID:Long?){
                 Row() {
                     Button(
                         onClick = { navController.navigate(Screen.InfoScreen.route) },
-                        modifier = Modifier.padding(bottom = 8.dp).fillMaxWidth()
+                        modifier = Modifier
+                            .padding(bottom = 8.dp)
+                            .fillMaxWidth()
                     ) {
                         androidx.compose.material3.Text("InfoScreen")
                     }
@@ -57,13 +69,12 @@ fun DetailScreen(navController: NavController, recipeID:Long?){
         ) { padding ->
             MainContent(
                 Modifier.padding(padding),
-                recipe.value,
-                onFavClick = { recipe:Recipe ->
-                    coroutineScope.launch {
-                        viewModel.updateFavoriteRecipe(recipe)
-                    }
+                recipe.value
+            ) { recipe: Recipe ->
+                coroutineScope.launch {
+                    viewModel.updateFavoriteRecipe(recipe)
                 }
-            )
+            }
         }
     }
 
@@ -87,12 +98,12 @@ fun MainContent(
             verticalArrangement = Arrangement.Top
         ) {
 
-            /*MovieRow(
-                movie = movie,
-                onFavClick = { movie ->
-                    onFavClick(movie)
+            RecipeRow(
+                recipe = recipe,
+                onFavClick = { recipe ->
+                    onFavClick(recipe)
                 }
-            )*/
+            )
             onFavClick(recipe)
 
 

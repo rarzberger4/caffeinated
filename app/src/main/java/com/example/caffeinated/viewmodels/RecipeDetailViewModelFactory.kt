@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.caffeinated.repositories.RecipeRepo
 
 
-class MovieDetailViewModelFactory(private val repository: RecipeRepo, private val id: Long): ViewModelProvider.Factory {
+class RecipeDetailViewModelFactory(private val repository: RecipeRepo, private val id: Long): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if(modelClass.isAssignableFrom(RecipesDetailViewModel::class.java)){
-            return RecipesDetailViewModel(repository = repository, id) as T
+        if(modelClass.isAssignableFrom(RecipeDetailViewModel::class.java)){
+            return RecipeDetailViewModel(repository = repository, id) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
