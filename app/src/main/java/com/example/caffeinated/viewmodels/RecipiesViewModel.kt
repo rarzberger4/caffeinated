@@ -30,4 +30,9 @@ class RecipiesViewModel(private val repository: RecipeRepo): ViewModel()  {
                 }
         }
     }
+
+    suspend fun updateFavoriteRecipe(recipe: Recipe) {
+       recipe.isFavorite = !recipe.isFavorite
+        repository.updateRecipe(recipe)
+    }
 }

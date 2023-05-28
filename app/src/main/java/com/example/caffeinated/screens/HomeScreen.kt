@@ -28,6 +28,7 @@ import com.example.caffeinated.repositories.RecipeRepo
 import com.example.caffeinated.ui.theme.CaffeinatedTheme
 import com.example.caffeinated.viewmodels.RecipiesViewModel
 import com.example.caffeinated.viewmodels.RecipiesViewModelFactory
+import com.example.caffeinated.widgets.RecipeRow
 
 @Composable
 fun HomeScreen(navController: NavController = rememberNavController()) {
@@ -53,14 +54,16 @@ fun HomeScreen(navController: NavController = rememberNavController()) {
                 Row() {
                     Button(
                         onClick = { navController.navigate(Screen.InfoScreen.route) },
-                        modifier = Modifier.padding(bottom = 8.dp).fillMaxWidth()
+                        modifier = Modifier
+                            .padding(bottom = 8.dp)
+                            .fillMaxWidth()
                     ) {
                         Text("InfoScreen")
                     }
                 }
 
 
-                RecipeList(recipeList = taskstate.value)
+                RecipeList(recipeList = taskstate.value, navController)
             }
         }
     }
@@ -68,33 +71,49 @@ fun HomeScreen(navController: NavController = rememberNavController()) {
 
 
 @Composable
-fun RecipeList(recipeList: List<Recipe>) {
+fun RecipeList(recipeList: List<Recipe>, navController: NavController) {
     LazyColumn {
         items(items = recipeList) { recipe ->
-            Column(
-                modifier = Modifier.padding(16.dp)
-            ) {
-                Text(
-                    text = recipe.title,
-                    style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp),
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-                Text(
-                    text = "Year: ${recipe.year}",
-                    style = TextStyle(fontSize = 16.sp),
-                    modifier = Modifier.padding(bottom = 4.dp)
-                )
-                Text(
-                    text = "Rating: ${recipe.rating}",
-                    style = TextStyle(fontSize = 16.sp),
-                    modifier = Modifier.padding(bottom = 4.dp)
-                )
-                Text(
-                    text = "Manual: ${recipe.manual}",
-                    style = TextStyle(fontSize = 16.sp),
-                    modifier = Modifier.padding(bottom = 4.dp)
-                )
-            }
+            RecipeRow(
+                recipe = recipe,
+                onRecipeRowClick = { recipeID ->
+                    navController.navigate(Screen.DetailScreen.withId(recipeID))
+                },
+            )
+
+
+
+
+
+
+
+
+//            Column(
+//                modifier = Modifier.padding(16.dp)
+//            ) {
+//                Text(
+//                    text = recipe.title,
+//                    style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp),
+//                    modifier = Modifier.padding(bottom = 8.dp)
+//
+//
+//                )
+//                Text(
+//                    text = "Year: ${recipe.year}",
+//                    style = TextStyle(fontSize = 16.sp),
+//                    modifier = Modifier.padding(bottom = 4.dp)
+//                )
+//                Text(
+//                    text = "Rating: ${recipe.rating}",
+//                    style = TextStyle(fontSize = 16.sp),
+//                    modifier = Modifier.padding(bottom = 4.dp)
+//                )
+//                Text(
+//                    text = "Manual: ${recipe.manual}",
+//                    style = TextStyle(fontSize = 16.sp),
+//                    modifier = Modifier.padding(bottom = 4.dp)
+//                )
+//            }
         }
     }
 }
