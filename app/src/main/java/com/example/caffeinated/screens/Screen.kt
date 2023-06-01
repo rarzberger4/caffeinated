@@ -13,5 +13,4 @@ sealed class Screen(val route: String) {
     }
 
     object FavoriteScreen : Screen("favorite")
-
 }

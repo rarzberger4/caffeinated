@@ -29,16 +29,13 @@ import com.example.caffeinated.models.Recipe
 import com.example.caffeinated.repositories.RecipeRepo
 import com.example.caffeinated.viewmodels.RecipeDetailViewModel
 import com.example.caffeinated.viewmodels.RecipeDetailViewModelFactory
-import com.example.caffeinated.viewmodels.RecipiesViewModelFactory
 import com.example.caffeinated.widgets.RecipeRow
 import kotlinx.coroutines.launch
 
 @Composable
-fun DetailScreen(navController: NavController, recipeID:Long?){
+fun DetailScreen(navController: NavController, recipeID: Long?) {
 
     recipeID?.let {
-
-
         val rr = RecipeRepo.getInstance(
             RecipeDatabase.getDatabase(LocalContext.current).recipeDao()
         )
@@ -46,23 +43,20 @@ fun DetailScreen(navController: NavController, recipeID:Long?){
         val factory = RecipeDetailViewModelFactory(rr, recipeID)
         val viewModel: RecipeDetailViewModel = viewModel(factory = factory)
         val recipe = viewModel.recipeState.collectAsState()
-
-
-
-
         val coroutineScope = rememberCoroutineScope()
         val scaffoldState = rememberScaffoldState() // this contains the `SnackbarHostState`
 
-        Scaffold(scaffoldState = scaffoldState, // attaching `scaffoldState` to the `Scaffold`
+        Scaffold(
+            scaffoldState = scaffoldState, // attaching `scaffoldState` to the `Scaffold`
             topBar = {
-                Row() {
+                Row(modifier = Modifier.fillMaxWidth()) {
                     Button(
-                        onClick = { navController.navigate(Screen.InfoScreen.route) },
+                        onClick = { navController.popBackStack() },
                         modifier = Modifier
                             .padding(bottom = 8.dp)
                             .fillMaxWidth()
                     ) {
-                        androidx.compose.material3.Text("InfoScreen")
+                        androidx.compose.material3.Text("Back")
                     }
                 }
             },
@@ -72,12 +66,11 @@ fun DetailScreen(navController: NavController, recipeID:Long?){
                 recipe.value
             ) { recipe: Recipe ->
                 coroutineScope.launch {
-                    viewModel.updateFavoriteRecipe(recipe)
+                    //viewModel.updateFavoriteRecipe(recipe)
                 }
             }
         }
     }
-
 }
 
 

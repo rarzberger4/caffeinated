@@ -1,13 +1,10 @@
 package com.example.caffeinated.screens
 
-import androidx.compose.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -23,14 +20,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.caffeinated.ui.theme.CaffeinatedTheme
-import com.pierfrancescosoffritti.*
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
@@ -155,9 +150,11 @@ fun InfoScreen(navController: NavController = rememberNavController()) {
 
                 item {
                     Column() {
-                        Text(text = "History of Coffee",
+                        Text(
+                            text = "History of Coffee",
                             style = MaterialTheme.typography.headlineSmall,
-                            modifier = Modifier.padding(horizontal = 8.dp))
+                            modifier = Modifier.padding(horizontal = 8.dp)
+                        )
 
                         // Add YouTube video
                         Box(
@@ -170,9 +167,7 @@ fun InfoScreen(navController: NavController = rememberNavController()) {
                                 modifier = Modifier.fillMaxSize()
                             )
                         }
-
                     }
-
                 }
             }
         }
@@ -199,6 +194,3 @@ fun YoutubeScreen(
         view
     })
 }
-
-
-
