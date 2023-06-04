@@ -26,11 +26,12 @@ fun Navigation() {
         }
         composable(
             Screen.DetailScreen.route,
-            arguments = listOf(navArgument(name = DETAIL_ARGUMENT_KEY) {type = NavType.LongType})
+            arguments = listOf(navArgument(name = DETAIL_ARGUMENT_KEY) { type = NavType.LongType })
         ) { backStackEntry ->    // backstack contains all information from navhost
             DetailScreen(
                 navController = navController,
-                recipeID = backStackEntry.arguments?.getLong(DETAIL_ARGUMENT_KEY))   // get the argument from navhost that will be passed
+                recipeID = backStackEntry.arguments?.getLong(DETAIL_ARGUMENT_KEY)
+            )   // get the argument from navhost that will be passed
         }
     }
 }

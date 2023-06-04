@@ -1,7 +1,7 @@
 package com.example.caffeinated.repositories
 
-import com.example.caffeinated.models.Recipe
 import com.example.caffeinated.data.RecipeDao
+import com.example.caffeinated.models.Recipe
 import kotlinx.coroutines.flow.Flow
 
 class RecipeRepo(private val recipeDao: RecipeDao) {

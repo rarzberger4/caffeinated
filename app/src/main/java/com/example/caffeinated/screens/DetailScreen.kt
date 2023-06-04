@@ -11,24 +11,21 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.caffeinated.data.RecipeDatabase
 import com.example.caffeinated.models.Recipe
 import com.example.caffeinated.repositories.RecipeRepo
@@ -38,8 +35,10 @@ import com.example.caffeinated.viewmodels.RecipeDetailViewModelFactory
 import com.example.caffeinated.widgets.RecipeRow
 import kotlinx.coroutines.launch
 
+val myMaterial3 = androidx.compose.material3.MaterialTheme
+
 @Composable
-fun DetailScreen(navController: NavController, recipeID: Long?) {
+fun DetailScreen(navController: NavController = rememberNavController(), recipeID: Long?) {
     CaffeinatedTheme {
         recipeID?.let {
             val rr = RecipeRepo.getInstance(
@@ -53,7 +52,7 @@ fun DetailScreen(navController: NavController, recipeID: Long?) {
             val scaffoldState = rememberScaffoldState() // this contains the `SnackbarHostState`
 
             Surface(
-                color = androidx.compose.material3.MaterialTheme.colorScheme.background,
+                color = myMaterial3.colorScheme.background,
                 modifier = Modifier.fillMaxSize()
             ) {
 
@@ -65,7 +64,7 @@ fun DetailScreen(navController: NavController, recipeID: Long?) {
                                 .padding(bottom = 8.dp)
                                 .fillMaxWidth()
                         ) {
-                            Text("Back")
+                            Text("Back", color = Color.White)
                         }
                     }
 

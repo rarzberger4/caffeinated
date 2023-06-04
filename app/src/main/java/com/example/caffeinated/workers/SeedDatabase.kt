@@ -30,10 +30,10 @@ class SeedDatabaseWorker(
         private const val TAG = "SeedDatabaseWorker"
     }
 
-    private suspend fun populateDatabase(database: RecipeDatabase){
+    private suspend fun populateDatabase(database: RecipeDatabase) {
         val dao = database.recipeDao()
         dao.deleteAll()
-        getRecipes().forEach{
+        getRecipes().forEach {
             dao.add(it)
         }
     }

@@ -29,30 +29,32 @@ abstract class RecipeDatabase : RoomDatabase() {
         @Volatile   // never cache the value of Instance
         private var Instance: RecipeDatabase? = null
 
-        fun getDatabase(context: Context): RecipeDatabase{
-            return Instance ?: synchronized(this) { // wrap in synchronized block to prevent race conditions
-                Room.databaseBuilder(context, RecipeDatabase::class.java, "recipe_db")
-                    .addCallback(
-                        object : Callback() {
-                            override fun onCreate(db: SupportSQLiteDatabase) {
-                                super.onCreate(db)
-                                // do work on first db creation
-                                val request = OneTimeWorkRequestBuilder<SeedDatabaseWorker>().build()
-                                WorkManager.getInstance(context).enqueue(request)
-                            }
+        fun getDatabase(context: Context): RecipeDatabase {
+            return Instance
+                ?: synchronized(this) { // wrap in synchronized block to prevent race conditions
+                    Room.databaseBuilder(context, RecipeDatabase::class.java, "recipe_db")
+                        .addCallback(
+                            object : Callback() {
+                                override fun onCreate(db: SupportSQLiteDatabase) {
+                                    super.onCreate(db)
+                                    // do work on first db creation
+                                    val request =
+                                        OneTimeWorkRequestBuilder<SeedDatabaseWorker>().build()
+                                    WorkManager.getInstance(context).enqueue(request)
+                                }
 
-                            override fun onOpen(db: SupportSQLiteDatabase) {
-                                super.onOpen(db)
-                                // do work on each start
+                                override fun onOpen(db: SupportSQLiteDatabase) {
+                                    super.onOpen(db)
+                                    // do work on each start
+                                }
                             }
+                        )
+                        .fallbackToDestructiveMigration()   // if schema changes wipe the whole schema - you could add your migration strategies here
+                        .build()    // create an instance of the db
+                        .also {
+                            Instance = it   // override Instance with newly created db
                         }
-                    )
-                    .fallbackToDestructiveMigration()   // if schema changes wipe the whole schema - you could add your migration strategies here
-                    .build()    // create an instance of the db
-                    .also {
-                        Instance = it   // override Instance with newly created db
-                    }
-            }
+                }
         }
     }
 }

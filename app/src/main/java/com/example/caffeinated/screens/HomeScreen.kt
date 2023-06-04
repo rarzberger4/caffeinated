@@ -17,16 +17,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.caffeinated.data.RecipeDatabase
-import com.example.caffeinated.models.Recipe
 import com.example.caffeinated.repositories.RecipeRepo
 import com.example.caffeinated.ui.theme.CaffeinatedTheme
 import com.example.caffeinated.viewmodels.RecipiesViewModel
@@ -55,7 +51,6 @@ fun HomeScreen(navController: NavController = rememberNavController()) {
             Column(
                 modifier = Modifier.padding(16.dp)
             ) {
-
                 Row() {
                     Button(
                         onClick = { navController.navigate(Screen.InfoScreen.route) },
@@ -66,7 +61,6 @@ fun HomeScreen(navController: NavController = rememberNavController()) {
                         Text("InfoScreen")
                     }
                 }
-
 
                 RecipeList(viewModel = viewModel, navController)
             }
@@ -87,20 +81,12 @@ fun RecipeList(viewModel: RecipiesViewModel, navController: NavController) {
                 onRecipeRowClick = { recipeID ->
                     navController.navigate(Screen.DetailScreen.withId(recipeID))
                 },
-                onFavClick  = { recipe ->
-                    coroutineScope.launch{
+                onFavClick = { recipe ->
+                    coroutineScope.launch {
                         viewModel.updateFavoriteRecipe(recipe)
                     }
-
                 }
             )
-
-
-
-
-
-
-
 
 //            Column(
 //                modifier = Modifier.padding(16.dp)
