@@ -8,14 +8,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 // inherit from ViewModel class
-class RecipeDetailViewModel(private val repository: RecipeRepo, private val id: Long): ViewModel() {
+class RecipeDetailViewModel(private val repository: RecipeRepo, private val id: Long) :
+    ViewModel() {
     val recipeState = MutableStateFlow(Recipe())
     //val movieListState: StateFlow<List<Movie>> = _movieListState.asStateFlow()
 
     init {
         viewModelScope.launch {
             repository.getById(id)
-                .collect{ recipe ->
+                .collect { recipe ->
                     recipe?.let {
                         recipeState.value = recipe
                     }

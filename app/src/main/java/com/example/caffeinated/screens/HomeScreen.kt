@@ -13,10 +13,13 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -29,7 +32,9 @@ import com.example.caffeinated.ui.theme.CaffeinatedTheme
 import com.example.caffeinated.viewmodels.RecipiesViewModel
 import com.example.caffeinated.viewmodels.RecipiesViewModelFactory
 import com.example.caffeinated.widgets.RecipeRow
+import kotlinx.coroutines.launch
 
+@Preview
 @Composable
 fun HomeScreen(navController: NavController = rememberNavController()) {
     CaffeinatedTheme {
@@ -46,7 +51,7 @@ fun HomeScreen(navController: NavController = rememberNavController()) {
             val viewModel: RecipiesViewModel = viewModel(factory = factory)
             val taskstate = viewModel.recipeListState.collectAsState()
 
-            //val coroutineScope = rememberCoroutineScope()
+            val coroutineScope = rememberCoroutineScope()
             Column(
                 modifier = Modifier.padding(16.dp)
             ) {
@@ -63,7 +68,7 @@ fun HomeScreen(navController: NavController = rememberNavController()) {
                 }
 
 
-                RecipeList(recipeList = taskstate.value, navController)
+                RecipeList(viewModel = viewModel, navController)
             }
         }
     }
@@ -71,14 +76,23 @@ fun HomeScreen(navController: NavController = rememberNavController()) {
 
 
 @Composable
-fun RecipeList(recipeList: List<Recipe>, navController: NavController) {
+fun RecipeList(viewModel: RecipiesViewModel, navController: NavController) {
+    val coroutineScope = rememberCoroutineScope()
+    val recipeListState by viewModel.recipeListState.collectAsState()
+
     LazyColumn {
-        items(items = recipeList) { recipe ->
+        items(items = recipeListState) { recipe ->
             RecipeRow(
                 recipe = recipe,
                 onRecipeRowClick = { recipeID ->
                     navController.navigate(Screen.DetailScreen.withId(recipeID))
                 },
+                onFavClick  = { recipe ->
+                    coroutineScope.launch{
+                        viewModel.updateFavoriteRecipe(recipe)
+                    }
+
+                }
             )
 
 

@@ -66,15 +66,19 @@ fun RecipeRow(
         elevation = 10.dp
     ) {
         Column {
-            Box(modifier = Modifier
-                .height(150.dp)
-                .fillMaxWidth(),
+            Box(
+                modifier = Modifier
+                    .height(150.dp)
+                    .fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
-                if(recipe.images.isNotEmpty()){
+                if (recipe.images.isNotEmpty()) {
                     RecipeImage(imageUrl = recipe.images[0])
                 } else {
-                    Image(painter = painterResource(id = R.drawable.ic_launcher_background), contentDescription = "Prev Image")
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_launcher_background),
+                        contentDescription = "Prev Image"
+                    )
                 }
                 FavoriteIcon(recipe, onFavClick)
             }
@@ -83,7 +87,6 @@ fun RecipeRow(
         }
     }
 }
-
 
 
 @Composable
@@ -103,15 +106,16 @@ fun RecipeImage(imageUrl: String) {
 
 @Composable
 fun FavoriteIcon(recipe: Recipe, onFavClick: (Recipe) -> Unit) {
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .padding(10.dp),
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(10.dp),
         contentAlignment = Alignment.TopEnd
-    ){
+    ) {
         Icon(
             tint = MaterialTheme.colors.secondary,
             imageVector =
-            if( recipe.isFavorite ) {
+            if (recipe.isFavorite) {
                 Icons.Default.Favorite
             } else {
                 Icons.Default.FavoriteBorder
@@ -144,9 +148,10 @@ fun MovieDetails(modifier: Modifier = Modifier, recipe: Recipe) {
         IconButton(
             modifier = Modifier.weight(1f),
             onClick = { expanded = !expanded }) {
-            Icon(imageVector =
-            if (expanded) Icons.Filled.KeyboardArrowDown
-            else Icons.Filled.KeyboardArrowUp,
+            Icon(
+                imageVector =
+                if (expanded) Icons.Filled.KeyboardArrowDown
+                else Icons.Filled.KeyboardArrowUp,
                 contentDescription = "expand",
                 modifier = Modifier
                     .size(25.dp),
@@ -160,19 +165,19 @@ fun MovieDetails(modifier: Modifier = Modifier, recipe: Recipe) {
         enter = fadeIn(),
         exit = fadeOut()
     ) {
-        Column (modifier = modifier) {
+        Column(modifier = modifier) {
             Text(text = "Manual: ${recipe.manual}", style = MaterialTheme.typography.caption)
             Text(text = "Released: ${recipe.year}", style = MaterialTheme.typography.caption)
             Text(
                 buildAnnotatedString {
-                withStyle(style = SpanStyle(color = Color.DarkGray, fontSize = 13.sp)) {
-                    append("Comments: ")
-                }
+                    withStyle(style = SpanStyle(color = Color.DarkGray, fontSize = 13.sp)) {
+                        append("Comments: ")
+                    }
 
-                for ( comments in recipe.comments){
-                    append("$comments ")
-                }
-            },
+                    for (comments in recipe.comments) {
+                        append("$comments ")
+                    }
+                },
                 style = MaterialTheme.typography.caption
             )
 
