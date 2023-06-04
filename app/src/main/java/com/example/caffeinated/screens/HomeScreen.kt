@@ -87,33 +87,6 @@ fun RecipeList(viewModel: RecipiesViewModel, navController: NavController) {
                     }
                 }
             )
-
-//            Column(
-//                modifier = Modifier.padding(16.dp)
-//            ) {
-//                Text(
-//                    text = recipe.title,
-//                    style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp),
-//                    modifier = Modifier.padding(bottom = 8.dp)
-//
-//
-//                )
-//                Text(
-//                    text = "Year: ${recipe.year}",
-//                    style = TextStyle(fontSize = 16.sp),
-//                    modifier = Modifier.padding(bottom = 4.dp)
-//                )
-//                Text(
-//                    text = "Rating: ${recipe.rating}",
-//                    style = TextStyle(fontSize = 16.sp),
-//                    modifier = Modifier.padding(bottom = 4.dp)
-//                )
-//                Text(
-//                    text = "Manual: ${recipe.manual}",
-//                    style = TextStyle(fontSize = 16.sp),
-//                    modifier = Modifier.padding(bottom = 4.dp)
-//                )
-//            }
         }
     }
 }

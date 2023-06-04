@@ -16,7 +16,7 @@ data class Recipe(
     val manual: String = "No plot available",
     val images: List<String> = listOf(),
     val rating: Double = 0.0,
-    val comments: List<String> = listOf(),
+    var comments: List<String> = listOf(),
     var isFavorite: Boolean = false,
     val roastinglvl: Int = 0,
     val origin: String = "",
@@ -38,7 +38,7 @@ fun getRecipes(): List<Recipe> {
             manual = "Put Coffee in water and enjoy...",
             images = listOf("https://images.immediate.co.uk/production/volatile/sites/30/2020/08/cappucino-32dbfba.jpg"),
             rating = 9.9,
-            comments = listOf("This is a Comment"),
+            comments = listOf("This is a Comment", "Second Comment"),
             roastinglvl = 3,
             origin = "Colombia",
             ingredients = listOf("Coffee beans", "Water", "Sugar")

@@ -32,6 +32,7 @@ import com.example.caffeinated.repositories.RecipeRepo
 import com.example.caffeinated.ui.theme.CaffeinatedTheme
 import com.example.caffeinated.viewmodels.RecipeDetailViewModel
 import com.example.caffeinated.viewmodels.RecipeDetailViewModelFactory
+import com.example.caffeinated.widgets.RecipeComment
 import com.example.caffeinated.widgets.RecipeRow
 import kotlinx.coroutines.launch
 
@@ -69,6 +70,7 @@ fun DetailScreen(navController: NavController = rememberNavController(), recipeI
                     }
 
                     MainContent(
+                        recipeID,
                         Modifier.padding(16.dp),
                         recipe.value
                     ) { recipe: Recipe ->
@@ -84,9 +86,10 @@ fun DetailScreen(navController: NavController = rememberNavController(), recipeI
 
 @Composable
 fun MainContent(
+    recipeID: Long,
     modifier: Modifier = Modifier,
     recipe: Recipe,
-    onFavClick: (Recipe) -> Unit
+    onFavClick: (Recipe) -> Unit,
 ) {
     Surface(
         modifier = modifier
@@ -108,6 +111,10 @@ fun MainContent(
 
 
             Spacer(modifier = Modifier.height(8.dp))
+
+            Divider()
+
+            RecipeComment(recipe = recipe, modifier = modifier, recipeID = recipeID)
 
             Divider()
 
