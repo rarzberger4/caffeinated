@@ -28,4 +28,9 @@ class RecipeDetailViewModel(private val repository: RecipeRepo, private val id: 
         recipe.isFavorite = !recipe.isFavorite
         repository.updateRecipe(recipe)
     }
+
+    suspend fun updateRecipeComment(recipe: Recipe, text: String){
+        recipe.comments += text
+        repository.updateRecipe(recipe)
+    }
 }

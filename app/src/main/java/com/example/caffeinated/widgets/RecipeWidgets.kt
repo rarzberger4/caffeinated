@@ -1,5 +1,6 @@
 package com.example.caffeinated.widgets
 
+import android.R.attr
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -8,6 +9,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,17 +21,23 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Shapes
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,15 +48,23 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.example.caffeinated.R
+import com.example.caffeinated.data.RecipeDatabase
 import com.example.caffeinated.models.Recipe
 import com.example.caffeinated.models.getRecipes
+import com.example.caffeinated.repositories.RecipeRepo
+import com.example.caffeinated.viewmodels.RecipeDetailViewModel
+import com.example.caffeinated.viewmodels.RecipeDetailViewModelFactory
+import com.example.caffeinated.viewmodels.RecipiesViewModel
+import kotlinx.coroutines.launch
+
 
 @Composable
 fun RecipeRow(
@@ -83,7 +99,7 @@ fun RecipeRow(
                 FavoriteIcon(recipe, onFavClick)
             }
 
-            MovieDetails(modifier = Modifier.padding(12.dp), recipe = recipe)
+            RecipeDetails(modifier = Modifier.padding(12.dp), recipe = recipe)
         }
     }
 }
@@ -129,7 +145,7 @@ fun FavoriteIcon(recipe: Recipe, onFavClick: (Recipe) -> Unit) {
 }
 
 @Composable
-fun MovieDetails(modifier: Modifier = Modifier, recipe: Recipe) {
+fun RecipeDetails(modifier: Modifier = Modifier, recipe: Recipe) {
 
     var expanded by remember {
         mutableStateOf(false)
@@ -150,8 +166,8 @@ fun MovieDetails(modifier: Modifier = Modifier, recipe: Recipe) {
             onClick = { expanded = !expanded }) {
             Icon(
                 imageVector =
-                if (expanded) Icons.Filled.KeyboardArrowDown
-                else Icons.Filled.KeyboardArrowUp,
+                if (expanded) Icons.Filled.KeyboardArrowUp
+                else Icons.Filled.KeyboardArrowDown,
                 contentDescription = "expand",
                 modifier = Modifier
                     .size(25.dp),
@@ -175,7 +191,7 @@ fun MovieDetails(modifier: Modifier = Modifier, recipe: Recipe) {
                     }
 
                     for (comments in recipe.comments) {
-                        append("$comments ")
+                        append("$comments \n")
                     }
                 },
                 style = MaterialTheme.typography.caption
@@ -184,4 +200,42 @@ fun MovieDetails(modifier: Modifier = Modifier, recipe: Recipe) {
             Divider(modifier = Modifier.padding(3.dp))
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun RecipeComment(recipe: Recipe, modifier: Modifier, recipeID: Long){
+    val rr = RecipeRepo.getInstance(
+        RecipeDatabase.getDatabase(LocalContext.current).recipeDao()
+    )
+
+    val factory = RecipeDetailViewModelFactory(rr, recipeID)
+    val viewModel: RecipeDetailViewModel = viewModel(factory = factory)
+    val recipe = viewModel.recipeState.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
+
+
+Surface(
+    modifier = modifier
+        .fillMaxWidth()
+        .padding(10.dp)
+) {
+    var text by remember { mutableStateOf("") }
+    OutlinedTextField(
+        value = text,
+        trailingIcon = { Icon(imageVector = Icons.Default.Add, contentDescription = null, modifier = Modifier.clickable {
+            coroutineScope.launch {
+                viewModel.updateRecipeComment(recipe.value, text)
+                text = ""
+            }
+        }) },
+        onValueChange = {
+        text = it },
+        label = { Text(text = "Add a Comment") },
+        placeholder = { Text(text = "Enter comment here") },
+    )
+
+
+}
+
 }
