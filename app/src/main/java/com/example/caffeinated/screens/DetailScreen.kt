@@ -66,7 +66,7 @@ fun DetailScreen(navController: NavController, recipeID: Long?) {
                 recipe.value
             ) { recipe: Recipe ->
                 coroutineScope.launch {
-                    //viewModel.updateFavoriteRecipe(recipe)
+                    viewModel.updateFavoriteRecipe(recipe)
                 }
             }
         }
@@ -97,7 +97,6 @@ fun MainContent(
                     onFavClick(recipe)
                 }
             )
-            onFavClick(recipe)
 
 
             Spacer(modifier = Modifier.height(8.dp))
