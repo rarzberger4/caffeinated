@@ -29,6 +29,8 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.TextField
@@ -204,7 +206,7 @@ fun RecipeDetails(modifier: Modifier = Modifier, recipe: Recipe) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RecipeComment(recipe: Recipe, modifier: Modifier, recipeID: Long){
+fun RecipeComment(modifier: Modifier, recipeID: Long) {
     val rr = RecipeRepo.getInstance(
         RecipeDatabase.getDatabase(LocalContext.current).recipeDao()
     )
@@ -238,4 +240,41 @@ Surface(
 
 }
 
+}
+
+@Composable
+fun RecipeRating(modifier: Modifier, recipeID: Long){
+    val rr = RecipeRepo.getInstance(
+        RecipeDatabase.getDatabase(LocalContext.current).recipeDao()
+    )
+
+    val factory = RecipeDetailViewModelFactory(rr, recipeID)
+    val viewModel: RecipeDetailViewModel = viewModel(factory = factory)
+    val recipe = viewModel.recipeState.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
+
+    val rating = recipe.value.rating.starRating
+    
+    Text(text = rating.toString())
+
+    Row {
+        for (i in 1..5) {
+            val starIcon = if (i <= rating) Icons.Filled.Star else Icons.Outlined.Star
+            val starContentDescription = "Star $i of 5"
+            val iconModifier = Modifier
+                .size(50.dp)
+                .clickable {
+                    coroutineScope.launch {
+                        viewModel.updateRecipeRating(recipe.value, i.toFloat())
+                    }
+                }
+                .padding(4.dp)
+
+            Icon(
+                imageVector = starIcon,
+                contentDescription = starContentDescription,
+                modifier = iconModifier
+            )
+        }
+    }
 }

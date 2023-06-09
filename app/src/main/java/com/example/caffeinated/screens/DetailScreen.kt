@@ -33,6 +33,7 @@ import com.example.caffeinated.ui.theme.CaffeinatedTheme
 import com.example.caffeinated.viewmodels.RecipeDetailViewModel
 import com.example.caffeinated.viewmodels.RecipeDetailViewModelFactory
 import com.example.caffeinated.widgets.RecipeComment
+import com.example.caffeinated.widgets.RecipeRating
 import com.example.caffeinated.widgets.RecipeRow
 import kotlinx.coroutines.launch
 
@@ -50,7 +51,6 @@ fun DetailScreen(navController: NavController = rememberNavController(), recipeI
             val viewModel: RecipeDetailViewModel = viewModel(factory = factory)
             val recipe = viewModel.recipeState.collectAsState()
             val coroutineScope = rememberCoroutineScope()
-            val scaffoldState = rememberScaffoldState() // this contains the `SnackbarHostState`
 
             Surface(
                 color = myMaterial3.colorScheme.background,
@@ -114,13 +114,16 @@ fun MainContent(
 
             Divider()
 
-            RecipeComment(recipe = recipe, modifier = modifier, recipeID = recipeID)
+            RecipeComment(modifier = modifier, recipeID = recipeID)
+
+            Divider()
+
+            RecipeRating(modifier = modifier, recipeID = recipeID)
 
             Divider()
 
             Text(text = "Recipe Images", style = MaterialTheme.typography.h5)
 
-            //HorizontalScrollableImageView(movie = movie)
         }
     }
 }
