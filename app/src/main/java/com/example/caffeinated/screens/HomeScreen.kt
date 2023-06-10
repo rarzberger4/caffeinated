@@ -61,7 +61,6 @@ fun HomeScreen(navController: NavController = rememberNavController()) {
                     ) {
                         Text("InfoScreen")
                     }
-
                     Button(
                         onClick = { navController.navigate(Screen.SearchScreen.route) },
                         modifier = Modifier.width(190.dp)
