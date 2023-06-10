@@ -55,7 +55,7 @@ fun HomeScreen(navController: NavController = rememberNavController()) {
                 Row {
                     Column {
                         Button(
-                            onClick = { navController.navigate(Screen.HomeScreen.route) },
+                            onClick = { navController.navigate(Screen.InfoScreen.route) },
                             modifier = Modifier
                                 .padding(bottom = 8.dp)
                                 .width(180.dp)
