@@ -53,21 +53,26 @@ fun HomeScreen(navController: NavController = rememberNavController()) {
                 modifier = Modifier.padding(16.dp)
             ) {
                 Row {
-                    Button(
-                        onClick = { navController.navigate(Screen.InfoScreen.route) },
-                        modifier = Modifier
-                            .padding(bottom = 8.dp)
-                            .width(180.dp)
-                    ) {
-                        Text("InfoScreen")
+                    Column {
+                        Button(
+                            onClick = { navController.navigate(Screen.HomeScreen.route) },
+                            modifier = Modifier
+                                .padding(bottom = 8.dp)
+                                .width(180.dp)
+                        ) {
+                            Text("InfoScreen")
+                        }
                     }
 
-                    Button(
-                        onClick = { navController.navigate(Screen.SearchScreen.route) },
-                        modifier = Modifier.width(190.dp)
-                    ) {
-                        Text("Search")
+                    Column {
+                        Button(
+                            onClick = { navController.navigate(Screen.SearchScreen.route) },
+                            modifier = Modifier.width(190.dp)
+                        ) {
+                            Text("Search")
+                        }
                     }
+
                 }
                 RecipeList(viewModel = viewModel, navController)
             }
