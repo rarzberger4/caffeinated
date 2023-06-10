@@ -186,6 +186,11 @@ fun RecipeDetails(modifier: Modifier = Modifier, recipe: Recipe) {
         exit = fadeOut()
     ) {
         Column(modifier = modifier) {
+            Text(text = "Origin: ${recipe.origin}", style = MaterialTheme.typography.caption)
+            Text(
+                text = "Roasting level: ${recipe.roastinglvl}",
+                style = MaterialTheme.typography.caption
+            )
             Text(text = "Manual: ${recipe.manual}", style = MaterialTheme.typography.caption)
             Text(text = "Released: ${recipe.year}", style = MaterialTheme.typography.caption)
             Text(
@@ -218,39 +223,39 @@ fun RecipeComment(modifier: Modifier, recipeID: Long) {
     val recipe = viewModel.recipeState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
 
-
-Surface(
-    modifier = modifier
-        .fillMaxWidth()
-        .padding(10.dp)
-) {
-    var text by remember { mutableStateOf("") }
-    OutlinedTextField(
-        value = text,
-        trailingIcon = { Icon(imageVector = Icons.Default.Add, contentDescription = null, modifier = Modifier.clickable {
-            coroutineScope.launch {
-                viewModel.updateRecipeComment(recipe.value, text)
-                text = ""
-            }
-        }) },
-        onValueChange = {
-        text = it },
-        label = { Text(text = "Add a Comment") },
-        placeholder = { Text(text = "Enter comment here") },
-    )
-
-
-}
-
+    Surface(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(10.dp)
+    ) {
+        var text by remember { mutableStateOf("") }
+        OutlinedTextField(
+            value = text,
+            trailingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = null,
+                    modifier = Modifier.clickable {
+                        coroutineScope.launch {
+                            viewModel.updateRecipeComment(recipe.value, text)
+                            text = ""
+                        }
+                    })
+            },
+            onValueChange = {
+                text = it
+            },
+            label = { Text(text = "Add a Comment") },
+            placeholder = { Text(text = "Enter comment here") },
+        )
+    }
 }
 
 @Composable
-fun RecipeRating(modifier: Modifier, recipe: Recipe, viewModel: RecipeDetailViewModel){
+fun RecipeRating(modifier: Modifier, recipe: Recipe, viewModel: RecipeDetailViewModel) {
 
 
     val coroutineScope = rememberCoroutineScope()
-
-
 
 
     val rating = recipe.rating

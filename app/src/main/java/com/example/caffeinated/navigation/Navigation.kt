@@ -24,6 +24,9 @@ fun Navigation() {
         composable(route = Screen.InfoScreen.route) {
             InfoScreen(navController = navController)
         }
+        composable(route = Screen.SearchScreen.route) {
+            InfoScreen(navController = navController)
+        }
         composable(
             Screen.DetailScreen.route,
             arguments = listOf(navArgument(name = DETAIL_ARGUMENT_KEY) { type = NavType.LongType })

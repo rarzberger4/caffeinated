@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
@@ -51,17 +52,23 @@ fun HomeScreen(navController: NavController = rememberNavController()) {
             Column(
                 modifier = Modifier.padding(16.dp)
             ) {
-                Row() {
+                Row {
                     Button(
                         onClick = { navController.navigate(Screen.InfoScreen.route) },
                         modifier = Modifier
                             .padding(bottom = 8.dp)
-                            .fillMaxWidth()
+                            .width(180.dp)
                     ) {
                         Text("InfoScreen")
                     }
-                }
 
+                    Button(
+                        onClick = { navController.navigate(Screen.SearchScreen.route) },
+                        modifier = Modifier.width(190.dp)
+                    ) {
+                        Text("Search")
+                    }
+                }
                 RecipeList(viewModel = viewModel, navController)
             }
         }
