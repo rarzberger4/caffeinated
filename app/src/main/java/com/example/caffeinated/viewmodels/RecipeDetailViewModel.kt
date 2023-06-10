@@ -35,8 +35,8 @@ class RecipeDetailViewModel(private val repository: RecipeRepo, private val id: 
         repository.updateRecipe(recipe)
     }
 
-    suspend fun updateRecipeRating(recipe: Recipe, rating: Float){
-        recipe.rating = Rating.newStarRating(Rating.RATING_5_STARS,rating)
+    suspend fun updateRecipeRating(recipe: Recipe, rating: Int){
+        recipe.rating = rating
         repository.updateRecipe(recipe)
     }
 

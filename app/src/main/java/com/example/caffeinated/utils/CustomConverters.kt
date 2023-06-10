@@ -12,10 +12,4 @@ class CustomConverters {
 
     @TypeConverter
     fun jsonToStringList(value: String) = Gson().fromJson(value, Array<String>::class.java).toList()
-
-    @TypeConverter
-    fun ratingToJson(value: Rating) = Gson().toJson(value)
-
-    @TypeConverter
-    fun jsonToRating(value: String) = Gson().fromJson(value, Rating::class.java)
 }

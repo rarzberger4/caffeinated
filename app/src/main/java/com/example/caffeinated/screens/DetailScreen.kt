@@ -21,6 +21,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalMapOf
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -70,19 +71,21 @@ fun DetailScreen(navController: NavController = rememberNavController(), recipeI
                     }
 
                     MainContent(
-                        recipeID,
-                        Modifier.padding(16.dp),
-                        recipe.value
-                    ) { recipe: Recipe ->
-                        coroutineScope.launch {
-                            viewModel.updateFavoriteRecipe(recipe)
-                        }
-                    }
+                        recipeID = recipeID,
+                        recipe = recipe.value,
+                        onFavClick = { recipe ->
+                            coroutineScope.launch {
+                                viewModel.updateFavoriteRecipe(recipe)
+                            }
+                        },
+                        viewModel = viewModel
+                    )
                 }
             }
         }
     }
 }
+
 
 @Composable
 fun MainContent(
@@ -90,6 +93,7 @@ fun MainContent(
     modifier: Modifier = Modifier,
     recipe: Recipe,
     onFavClick: (Recipe) -> Unit,
+    viewModel: RecipeDetailViewModel
 ) {
     Surface(
         modifier = modifier
@@ -118,9 +122,10 @@ fun MainContent(
 
             Divider()
 
-            RecipeRating(modifier = modifier, recipeID = recipeID)
 
             Divider()
+
+            RecipeRating(modifier = modifier, recipe = recipe, viewModel = viewModel)
 
             Text(text = "Recipe Images", style = MaterialTheme.typography.h5)
 

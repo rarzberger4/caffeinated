@@ -30,6 +30,7 @@ import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
@@ -65,6 +66,7 @@ import com.example.caffeinated.repositories.RecipeRepo
 import com.example.caffeinated.viewmodels.RecipeDetailViewModel
 import com.example.caffeinated.viewmodels.RecipeDetailViewModelFactory
 import com.example.caffeinated.viewmodels.RecipiesViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
@@ -243,29 +245,26 @@ Surface(
 }
 
 @Composable
-fun RecipeRating(modifier: Modifier, recipeID: Long){
-    val rr = RecipeRepo.getInstance(
-        RecipeDatabase.getDatabase(LocalContext.current).recipeDao()
-    )
+fun RecipeRating(modifier: Modifier, recipe: Recipe, viewModel: RecipeDetailViewModel){
 
-    val factory = RecipeDetailViewModelFactory(rr, recipeID)
-    val viewModel: RecipeDetailViewModel = viewModel(factory = factory)
-    val recipe = viewModel.recipeState.collectAsState()
+
     val coroutineScope = rememberCoroutineScope()
 
-    val rating = recipe.value.rating.starRating
-    
-    Text(text = rating.toString())
+
+
+
+    val rating = recipe.rating
+
 
     Row {
         for (i in 1..5) {
-            val starIcon = if (i <= rating) Icons.Filled.Star else Icons.Outlined.Star
+            val starIcon = if (i <= rating) Icons.Outlined.Star else Icons.Outlined.Add
             val starContentDescription = "Star $i of 5"
             val iconModifier = Modifier
                 .size(50.dp)
                 .clickable {
                     coroutineScope.launch {
-                        viewModel.updateRecipeRating(recipe.value, i.toFloat())
+                        viewModel.updateRecipeRating(recipe, i)
                     }
                 }
                 .padding(4.dp)
