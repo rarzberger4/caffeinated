@@ -11,6 +11,7 @@ import com.example.caffeinated.screens.DetailScreen
 import com.example.caffeinated.screens.HomeScreen
 import com.example.caffeinated.screens.InfoScreen
 import com.example.caffeinated.screens.Screen
+import com.example.caffeinated.screens.SearchScreen
 
 
 @Composable
@@ -23,6 +24,9 @@ fun Navigation() {
         }
         composable(route = Screen.InfoScreen.route) {
             InfoScreen(navController = navController)
+        }
+        composable(route = Screen.SearchScreen.route) {
+            SearchScreen(navController = navController)
         }
         composable(
             Screen.DetailScreen.route,
