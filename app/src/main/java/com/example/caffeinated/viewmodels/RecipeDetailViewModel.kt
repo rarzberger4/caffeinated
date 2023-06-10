@@ -1,5 +1,6 @@
 package com.example.caffeinated.viewmodels
 
+import android.media.Rating
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.caffeinated.models.Recipe
@@ -33,4 +34,11 @@ class RecipeDetailViewModel(private val repository: RecipeRepo, private val id: 
         recipe.comments += text
         repository.updateRecipe(recipe)
     }
+
+    suspend fun updateRecipeRating(recipe: Recipe, rating: Int){
+        recipe.rating = rating
+        repository.updateRecipe(recipe)
+    }
+
+
 }

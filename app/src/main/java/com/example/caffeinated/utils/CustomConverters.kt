@@ -1,5 +1,6 @@
 package com.example.caffeinated.utils
 
+import android.media.Rating
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 
