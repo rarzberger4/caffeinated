@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Surface
 import androidx.compose.material.TextField
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,70 +40,83 @@ fun SearchScreen(navController: NavController = rememberNavController()) {
     )
     val factory = RecipiesViewModelFactory(rr)
     val viewModel: RecipiesViewModel = viewModel(factory = factory)
-    val query = ""
 
     CaffeinatedTheme() {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            val searchQuery = remember { mutableStateOf(TextFieldValue()) }
+            val roastinglvlinput = remember { mutableStateOf(TextFieldValue()) }
+            val origininput = remember { mutableStateOf(TextFieldValue()) }
 
             Column(modifier = Modifier.fillMaxWidth()) {
                 TextField(
-                    value = searchQuery.value,
-                    onValueChange = { searchQuery.value = it },
+                    value = roastinglvlinput.value,
+                    onValueChange = { roastinglvlinput.value = it },
                     label = { Text("Roasting Level") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp)
                 )
-
-                Button(
-                    onClick = {
-                        val query = searchQuery.value.text
-                    },
+                TextField(
+                    value = origininput.value,
+                    onValueChange = { origininput.value = it },
+                    label = { Text("Origin Country") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp)
-                ) {
-                    Text("Search")
-                }
-
-                performSearch(query, viewModel, navController)
+                )
             }
+
+
+
+
+            if (roastinglvlinput.value.text != "" && origininput.value.text != "") {
+                performSearch(
+                    viewModel,
+                    navController,
+                    roastinglvlinput.value.text.toInt(),
+                    origininput.value.text
+                )
+            }
+
         }
     }
 }
 
+
 @Composable
 private fun performSearch(
-    query: String,
     viewModel: RecipiesViewModel,
-    navController: NavController
+    navController: NavController,
+    roastingquery: Int,
+    originquery: String
+
 ) {
     // Implement your search logic here
     // This is just a placeholder to demonstrate the search functionality
     val coroutineScope = rememberCoroutineScope()
     val recipeListState by viewModel.recipeListState.collectAsState()
 
-    if (query.isNotEmpty()) {
-        LazyColumn {
-            items(items = recipeListState) { recipe ->
-                if (recipe.roastinglvl.equals(query)) {
-                    RecipeRow(
-                        recipe = recipe,
-                        onRecipeRowClick = { recipeID ->
-                            navController.navigate(Screen.DetailScreen.withId(recipeID))
-                        },
-                        onFavClick = { recipe ->
-                            coroutineScope.launch {
-                                viewModel.updateFavoriteRecipe(recipe)
-                            }
+
+
+    LazyColumn {
+        items(items = recipeListState) { recipe ->
+
+            if (recipe.roastinglvl == roastingquery && recipe.origin == originquery) {
+                RecipeRow(
+                    recipe = recipe,
+                    onRecipeRowClick = { recipeID ->
+                        navController.navigate(Screen.DetailScreen.withId(recipeID))
+                    },
+                    onFavClick = { recipe ->
+                        coroutineScope.launch {
+                            viewModel.updateFavoriteRecipe(recipe)
                         }
-                    )
-                }
+                    }
+                )
             }
         }
+
     }
 }
