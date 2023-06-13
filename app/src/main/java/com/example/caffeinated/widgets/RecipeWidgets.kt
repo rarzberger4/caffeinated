@@ -82,7 +82,8 @@ fun RecipeRow(
     recipe: Recipe = getRecipes()[0],
     modifier: Modifier = Modifier,
     onRecipeRowClick: (String) -> Unit = {},
-    onFavClick: (Recipe) -> Unit = {}
+    onFavClick: (Recipe) -> Unit = {},
+    expanded: Boolean
 ) {
     Card(modifier = modifier
         .clickable {
@@ -110,7 +111,7 @@ fun RecipeRow(
                 FavoriteIcon(recipe, onFavClick)
             }
 
-            RecipeDetails(modifier = Modifier.padding(12.dp), recipe = recipe)
+            RecipeDetails(modifier = Modifier.padding(12.dp), recipe = recipe, expanded)
         }
     }
 }
@@ -156,10 +157,10 @@ fun FavoriteIcon(recipe: Recipe, onFavClick: (Recipe) -> Unit) {
 }
 
 @Composable
-fun RecipeDetails(modifier: Modifier = Modifier, recipe: Recipe) {
+fun RecipeDetails(modifier: Modifier = Modifier, recipe: Recipe, expanded:Boolean) {
 
     var expanded by remember {
-        mutableStateOf(false)
+        mutableStateOf(expanded)
     }
 
     Row(

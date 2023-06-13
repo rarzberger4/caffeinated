@@ -143,7 +143,8 @@ private fun performSearch(
                         coroutineScope.launch {
                             viewModel.updateFavoriteRecipe(recipe)
                         }
-                    }
+                    },
+                    expanded = false
                 )
             }else if(roastingquery == 0 && recipe.origin.equals(originquery,true)){
                 RecipeRow(
@@ -155,7 +156,8 @@ private fun performSearch(
                         coroutineScope.launch {
                             viewModel.updateFavoriteRecipe(recipe)
                         }
-                    }
+                    },
+                    expanded = false
                 )
             }else if(recipe.roastinglvl == roastingquery && originquery == "0"){
                 RecipeRow(
@@ -167,7 +169,8 @@ private fun performSearch(
                         coroutineScope.launch {
                             viewModel.updateFavoriteRecipe(recipe)
                         }
-                    }
+                    },
+                    expanded = false
                 )
             }
         }

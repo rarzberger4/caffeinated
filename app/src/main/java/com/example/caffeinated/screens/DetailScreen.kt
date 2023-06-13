@@ -110,7 +110,8 @@ fun MainContent(
                 recipe = recipe,
                 onFavClick = { recipe ->
                     onFavClick(recipe)
-                }
+                },
+                expanded = true
             )
 
 
@@ -121,7 +122,6 @@ fun MainContent(
             RecipeComment(modifier = modifier, recipeID = recipeID)
 
             Divider()
-
 
             Divider()
 
