@@ -4,7 +4,10 @@ import android.R.attr
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -53,6 +56,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -68,6 +72,9 @@ import com.example.caffeinated.viewmodels.RecipeDetailViewModelFactory
 import com.example.caffeinated.viewmodels.RecipiesViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.time.Instant
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 
 
 @Composable
@@ -75,7 +82,8 @@ fun RecipeRow(
     recipe: Recipe = getRecipes()[0],
     modifier: Modifier = Modifier,
     onRecipeRowClick: (String) -> Unit = {},
-    onFavClick: (Recipe) -> Unit = {}
+    onFavClick: (Recipe) -> Unit = {},
+    expanded: Boolean
 ) {
     Card(modifier = modifier
         .clickable {
@@ -103,7 +111,7 @@ fun RecipeRow(
                 FavoriteIcon(recipe, onFavClick)
             }
 
-            RecipeDetails(modifier = Modifier.padding(12.dp), recipe = recipe)
+            RecipeDetails(modifier = Modifier.padding(12.dp), recipe = recipe, expanded)
         }
     }
 }
@@ -133,7 +141,7 @@ fun FavoriteIcon(recipe: Recipe, onFavClick: (Recipe) -> Unit) {
         contentAlignment = Alignment.TopEnd
     ) {
         Icon(
-            tint = MaterialTheme.colors.secondary,
+            tint = MaterialTheme.colors.primary,
             imageVector =
             if (recipe.isFavorite) {
                 Icons.Default.Favorite
@@ -149,10 +157,10 @@ fun FavoriteIcon(recipe: Recipe, onFavClick: (Recipe) -> Unit) {
 }
 
 @Composable
-fun RecipeDetails(modifier: Modifier = Modifier, recipe: Recipe) {
+fun RecipeDetails(modifier: Modifier = Modifier, recipe: Recipe, expanded:Boolean) {
 
     var expanded by remember {
-        mutableStateOf(false)
+        mutableStateOf(expanded)
     }
 
     Row(
@@ -195,15 +203,16 @@ fun RecipeDetails(modifier: Modifier = Modifier, recipe: Recipe) {
             Text(text = "Released: ${recipe.year}", style = MaterialTheme.typography.caption)
             Text(
                 buildAnnotatedString {
-                    withStyle(style = SpanStyle(color = Color.DarkGray, fontSize = 13.sp)) {
-                        append("Comments: ")
+                    withStyle(style = SpanStyle(color = Color.DarkGray, fontSize = 14.sp)) {
+                        append("Comments:")
                     }
 
                     for (comments in recipe.comments) {
-                        append("$comments \n")
+                        append("\n$comments")
                     }
                 },
-                style = MaterialTheme.typography.caption
+                style = MaterialTheme.typography.caption,
+                modifier = Modifier.background(color = Color.LightGray).fillMaxWidth()
             )
 
             Divider(modifier = Modifier.padding(3.dp))
@@ -223,6 +232,11 @@ fun RecipeComment(modifier: Modifier, recipeID: Long) {
     val recipe = viewModel.recipeState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
 
+    val date = DateTimeFormatter
+        .ofPattern("yyyy-MM-dd HH:mm")
+        .withZone(ZoneOffset.UTC)
+        .format(Instant.now())
+
     Surface(
         modifier = modifier
             .fillMaxWidth()
@@ -237,7 +251,7 @@ fun RecipeComment(modifier: Modifier, recipeID: Long) {
                     contentDescription = null,
                     modifier = Modifier.clickable {
                         coroutineScope.launch {
-                            viewModel.updateRecipeComment(recipe.value, text)
+                            viewModel.updateRecipeComment(recipe.value, "["+date.toString()+"] "+text)
                             text = ""
                         }
                     })

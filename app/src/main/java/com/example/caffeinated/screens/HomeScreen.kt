@@ -97,7 +97,8 @@ fun RecipeList(viewModel: RecipiesViewModel, navController: NavController) {
                     coroutineScope.launch {
                         viewModel.updateFavoriteRecipe(recipe)
                     }
-                }
+                },
+                expanded = false
             )
         }
     }

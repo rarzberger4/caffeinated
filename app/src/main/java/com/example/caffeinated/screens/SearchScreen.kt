@@ -94,6 +94,20 @@ fun SearchScreen(navController: NavController = rememberNavController()) {
                         roastinglvlinput.value.text.toInt(),
                         origininput.value.text
                     )
+                }else if(roastinglvlinput.value.text == "" && origininput.value.text != ""){
+                    performSearch(
+                        viewModel,
+                        navController,
+                        0,
+                        origininput.value.text
+                    )
+                }else if (roastinglvlinput.value.text != "" && origininput.value.text == ""){
+                    performSearch(
+                        viewModel,
+                        navController,
+                        roastinglvlinput.value.text.toInt(),
+                        "0"
+                    )
                 }
             }
         }
@@ -119,7 +133,7 @@ private fun performSearch(
     LazyColumn {
         items(items = recipeListState) { recipe ->
 
-            if (recipe.roastinglvl == roastingquery && recipe.origin == originquery) {
+            if (recipe.roastinglvl == roastingquery && recipe.origin.equals(originquery,true)) {
                 RecipeRow(
                     recipe = recipe,
                     onRecipeRowClick = { recipeID ->
@@ -129,7 +143,34 @@ private fun performSearch(
                         coroutineScope.launch {
                             viewModel.updateFavoriteRecipe(recipe)
                         }
-                    }
+                    },
+                    expanded = false
+                )
+            }else if(roastingquery == 0 && recipe.origin.equals(originquery,true)){
+                RecipeRow(
+                    recipe = recipe,
+                    onRecipeRowClick = { recipeID ->
+                        navController.navigate(Screen.DetailScreen.withId(recipeID))
+                    },
+                    onFavClick = { recipe ->
+                        coroutineScope.launch {
+                            viewModel.updateFavoriteRecipe(recipe)
+                        }
+                    },
+                    expanded = false
+                )
+            }else if(recipe.roastinglvl == roastingquery && originquery == "0"){
+                RecipeRow(
+                    recipe = recipe,
+                    onRecipeRowClick = { recipeID ->
+                        navController.navigate(Screen.DetailScreen.withId(recipeID))
+                    },
+                    onFavClick = { recipe ->
+                        coroutineScope.launch {
+                            viewModel.updateFavoriteRecipe(recipe)
+                        }
+                    },
+                    expanded = false
                 )
             }
         }
