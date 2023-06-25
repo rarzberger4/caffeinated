@@ -61,6 +61,7 @@ fun HomeScreen(navController: NavController = rememberNavController()) {
                     ) {
                         Text("InfoScreen")
                     }
+
                     Button(
                         onClick = { navController.navigate(Screen.SearchScreen.route) },
                         modifier = Modifier.width(190.dp)
@@ -91,8 +92,7 @@ fun RecipeList(viewModel: RecipiesViewModel, navController: NavController) {
                     coroutineScope.launch {
                         viewModel.updateFavoriteRecipe(recipe)
                     }
-                },
-                expanded = false
+                }
             )
         }
     }
