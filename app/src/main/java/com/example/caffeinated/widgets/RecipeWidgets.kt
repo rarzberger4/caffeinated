@@ -141,7 +141,7 @@ fun FavoriteIcon(recipe: Recipe, onFavClick: (Recipe) -> Unit) {
         contentAlignment = Alignment.TopEnd
     ) {
         Icon(
-            tint = Color.Red,
+            tint = MaterialTheme.colors.primary,
 
             imageVector =
             if (recipe.isFavorite) {
