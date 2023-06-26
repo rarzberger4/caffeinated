@@ -1,5 +1,6 @@
 package com.example.caffeinated.screens
 
+import android.icu.lang.UCharacter.VerticalOrientation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -21,8 +24,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.modifier.modifierLocalMapOf
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -101,33 +106,24 @@ fun MainContent(
             .fillMaxHeight()
     ) {
 
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top
-        ) {
 
-            RecipeRow(
+        LazyColumn{
+            item { RecipeRow(
                 recipe = recipe,
                 onFavClick = { recipe ->
                     onFavClick(recipe)
                 },
                 expanded = true
-            )
+            ) }
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+                RecipeComment(modifier = modifier, recipeID = recipeID)
+            }
 
+            item() {
+                    RecipeRating(modifier = modifier, recipe = recipe, viewModel = viewModel)
+            }
 
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Divider()
-
-            RecipeComment(modifier = modifier, recipeID = recipeID)
-
-            Divider()
-
-            Divider()
-
-            RecipeRating(modifier = modifier, recipe = recipe, viewModel = viewModel)
-
-            Text(text = "Recipe Images", style = MaterialTheme.typography.h5)
 
         }
     }
