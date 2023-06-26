@@ -34,10 +34,14 @@ fun getRecipes(): List<Recipe> {
     return listOf(
         Recipe(
             id = "1",
-            title = "Rezept 1",
-            year = "2023",
-            manual = "Put Coffee in water and enjoy...",
-            images = listOf("https://images.immediate.co.uk/production/volatile/sites/30/2020/08/cappucino-32dbfba.jpg"),
+            title = "Caffe Caturra ",
+            year = "1900",
+            manual = "1. rind El Salvador coffee beans to your desired consistency.\n" +
+                    "2. Boil water and let it cool slightly to around 200°F (93°C).\n" +
+                    "3. Place the ground coffee into a coffee maker or a French press.\n" +
+                    "4. Pour hot water over the coffee and let it steep for about 4-5 minutes.\n" +
+                    "5. Press or strain the coffee to separate the grounds",
+            images = listOf("https://cdn.shopify.com/s/files/1/0013/2510/5212/articles/8.22-COLUMBIAN-COFFEE.jpg?v=1566456985"),
             rating = 0,
             comments = listOf("This is a Comment", "Second Comment"),
             roastinglvl = 3,
@@ -47,10 +51,13 @@ fun getRecipes(): List<Recipe> {
 
         Recipe(
             id = "2",
-            title = "Rezept 2",
-            year = "1998",
-            manual = "Take the beans and eat them with water",
-            images = listOf("https://images.immediate.co.uk/production/volatile/sites/30/2020/08/flat-white-3402c4f.jpg"),
+            title = "Mundo Novo",
+            year = "1950",
+            manual = "\n1. Grind Mundo Novo coffee beans to a medium-fine consistency.\n" +
+                    "2. Bring water to a boil in a kettle or saucepan.\n" +
+                    "3. Let the coffee steep for about 4-5 minutes.\n" +
+                    "4. Pour the brewed coffee into cups or mugs.",
+            images = listOf("https://cdn.shopify.com/s/files/1/0629/0328/8043/files/kc-blog-mundonovo-brunch-1024x634.jpg"),
             rating = 2,
             comments = listOf("This is another Comment"),
             roastinglvl = 2,
@@ -60,114 +67,102 @@ fun getRecipes(): List<Recipe> {
 
         Recipe(
             id = "3",
-            title = "Rezept 3",
-            year = "2022",
-            manual = "Mix coffee, milk, cocoa, and sugar. Heat and serve.",
-            images = listOf("https://images.immediate.co.uk/production/volatile/sites/30/2020/08/hot-chocolate-1b8b262.jpg"),
+            title = "Egg Coffee",
+            year = "202",
+            manual = "\n1. add eggs yolks + condensed milk to a cup and mix them\n" +
+                    "2. Place phin on your mug and add coffee grounds.\n" +
+                    "3. Fill up phin with boliong water and let coffee brew it.\n" +
+                    "4. Mix everything together until smooth.",
+            images = listOf("https://afoodieworld.com/wp-content/uploads/2023/04/egg_coffee_nfrwfr.jpg"),
             rating = 3,
             comments = listOf("Delicious coffee hot chocolate recipe!"),
-            roastinglvl = 1,
-            origin = "Switzerland",
+            roastinglvl = 2,
+            origin = "Vietnam",
             ingredients = listOf("Coffee", "Milk", "Cocoa", "Sugar")
         ),
 
         Recipe(
             id = "4",
-            title = "Rezept 4",
-            year = "2010",
-            manual = "Blend coffee, fruits, and yogurt to make a healthy smoothie.",
-            images = listOf("https://images.immediate.co.uk/production/volatile/sites/30/2020/08/fruit-smoothie-350c52c.jpg"),
+            title = "Cappuccino",
+            year = "1920",
+            manual = "\n1. Brew a shot of espresso using an espresso machine or a moka pot.\n" +
+                    "2. While the espresso is brewing, heat the milk in a saucepan or using a milk.\n" +
+                    "3. If desired, add sugar to the heated milk and stir until dissolved.\n" +
+                    "4. Serve the cappuccino immediately while it's still hot.\n",
+            images = listOf("https://upload.wikimedia.org/wikipedia/commons/c/c8/Cappuccino_at_Sightglass_Coffee.jpg"),
             rating = 4,
             comments = listOf("Refreshing coffee smoothie recipe!"),
             roastinglvl = 2,
-            origin = "Unknown",
+            origin = "Italy",
             ingredients = listOf("Coffee", "Fruits", "Yogurt")
         ),
 
         Recipe(
             id = "5",
-            title = "Rezept 5",
-            year = "2021",
-            manual = "Grind coffee beans, brew, and serve with milk and sugar.",
-            images = listOf("https://images.immediate.co.uk/production/volatile/sites/30/2020/08/grilled-chicken-1ef7f35.jpg"),
+            title = "Espresso",
+            year = "1930",
+            manual = "\n1. Grind the coffee beans to a fine consistency.\n" +
+                    "2. Measure approximately 18-20 grams of coffee grounds for a double shot of espresso.\n" +
+                    "3. Lock the portafilter into the espresso machine.\n" +
+                    "4. The espresso should begin flowing into the cups in a steady stream.\n" +
+                    "5. Serve the espresso immediately while it's hot.",
+            images = listOf("https://www.thespruceeats.com/thmb/HJrjMfXdLGHbgMhnM0fMkDx9XPQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/what-is-espresso-765702-hero-03_cropped-ffbc0c7cf45a46ff846843040c8f370c.jpg"),
             rating = 5,
             comments = listOf("Perfectly brewed coffee recipe!"),
             roastinglvl = 3,
-            origin = "Unknown",
+            origin = "Italy",
             ingredients = listOf("Coffee beans", "Water", "Milk", "Sugar")
         ),
 
         Recipe(
             id = "6",
-            title = "Rezept 6",
-            year = "2015",
-            manual = "Boil coffee-infused water, add pasta, mix with sauce, and garnish with cheese.",
-            images = listOf("https://images.immediate.co.uk/production/volatile/sites/30/2020/08/pasta-bolognese-9a058ad.jpg"),
+            title = "Bourbon",
+            year = "2000",
+            manual = "\n1. Grind the Bourbon coffee beans to a medium consistency.\n" +
+                    "2. Measure the desired amount of coffee grounds\n" +
+                    "3. Stir the coffee grounds and water gently to ensure even extraction.\n" +
+                    "4. Let the coffee steep for about 4-5 minutes.\n" +
+                    "5. Optionally, add sugar, milk,ice or other flavorings according to your preference.",
+            images = listOf("https://jamiegeller.com/.image/t_share/MTY1NTI0OTQ1ODY5MzUwNDM4/coffee-bourbon-cocktail-horizontal.jpg"),
             rating = 4,
             comments = listOf("Classic coffee-infused pasta recipe!"),
-            roastinglvl = 1,
+            roastinglvl = 3,
             origin = "Italy",
             ingredients = listOf("Coffee", "Water", "Pasta", "Sauce", "Cheese")
         ),
 
         Recipe(
             id = "7",
-            title = "Rezept 7",
-            year = "2020",
-            manual = "Bake coffee-infused cake batter and frost with coffee-flavored buttercream.",
-            images = listOf("https://images.immediate.co.uk/production/volatile/sites/30/2020/08/victoria-sponge-0d6ce15.jpg"),
+            title = "Pacas",
+            year = "2001",
+            manual = "\n1. Grind the Bourbon coffee beans to a medium consistency.\n" +
+                    "2. Measure the desired amount of coffee grounds\n" +
+                    "3. Stir the coffee grounds and water gently to ensure even extraction.\n" +
+                    "4. Let the coffee steep for about 4-5 minutes.\n" +
+                    "5. Optionally, add sugar, milk or other flavorings according to your preference.",
+            images = listOf("https://walmartsv.vtexassets.com/arquivos/ids/224134/Cafe-Pacas-Gourmet-Molido-454-Gr-1-3620.jpg?v=637805686087300000"),
             rating = 3,
             comments = listOf("Moist and delicious coffee cake recipe!"),
-            roastinglvl = 2,
-            origin = "Unknown",
+            roastinglvl = 1,
+            origin = "El Salvador",
             ingredients = listOf("Coffee", "Flour", "Sugar", "Butter", "Eggs", "Baking powder")
         ),
 
         Recipe(
             id = "8",
-            title = "Rezept 8",
-            year = "2019",
-            manual = "Marinate steak with coffee-infused seasoning and grill to perfection.",
-            images = listOf("https://images.immediate.co.uk/production/volatile/sites/30/2020/08/steak-diane-5a180fe.jpg"),
+            title = "Typica",
+            year = "2000",
+            manual = "\n1. Grind the Bourbon coffee beans to a medium consistency.\n" +
+                    "2. Measure the desired amount of coffee grounds\n" +
+                    "3. Stir the coffee grounds and water gently to ensure even extraction.\n" +
+                    "4. Let the coffee steep for about 4-5 minutes.\n" +
+                    "5. Optionally, add sugar, milk or other flavorings according to your preference.",
+            images = listOf("https://assets1.phonebooky.com/listings/assets/000/036/428/original/coffee4.jpg"),
             rating = 2,
             comments = listOf("Tender and flavorful coffee-infused steak recipe!"),
-            roastinglvl = 3,
-            origin = "Unknown",
+            roastinglvl = 4,
+            origin = "Guatemala",
             ingredients = listOf("Coffee", "Steak", "Salt", "Pepper", "Garlic powder", "Olive oil")
-        ),
-
-        Recipe(
-            id = "9",
-            title = "Rezept 9",
-            year = "2022",
-            manual = "Roast coffee-infused vegetables and toss with dressing.",
-            images = listOf("https://images.immediate.co.uk/production/volatile/sites/30/2020/08/roasted-vegetables-89ac8db.jpg"),
-            rating = 1,
-            comments = listOf("Healthy and flavorful coffee-infused vegetable recipe!"),
-            roastinglvl = 2,
-            origin = "Unknown",
-            ingredients = listOf("Coffee", "Vegetables", "Olive oil", "Salt", "Pepper", "Herbs")
-        ),
-
-        Recipe(
-            id = "10",
-            title = "Rezept 10",
-            year = "2018",
-            manual = "Make coffee-infused dough, add toppings, and bake the pizza.",
-            images = listOf("https://images.immediate.co.uk/production/volatile/sites/30/2020/08/pizza-8b55650.jpg"),
-            rating = 3,
-            comments = listOf("Homemade coffee-infused pizza recipe!"),
-            roastinglvl = 2,
-            origin = "Italy",
-            ingredients = listOf(
-                "Coffee",
-                "Flour",
-                "Yeast",
-                "Water",
-                "Salt",
-                "Olive oil",
-                "Pizza toppings"
-            )
         )
     )
 }
