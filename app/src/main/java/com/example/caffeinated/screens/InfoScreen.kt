@@ -33,7 +33,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 
 @Composable
 fun InfoScreen(navController: NavController = rememberNavController()) {
-    val youtubeVideoId = "dQw4w9WgXcQ"
+    val youtubeVideoId = "EJVbsCfLy-8"
 
     CaffeinatedTheme {
         Surface(
