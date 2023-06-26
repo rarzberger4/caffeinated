@@ -43,7 +43,7 @@ fun getRecipes(): List<Recipe> {
                     "5. Press or strain the coffee to separate the grounds",
             images = listOf("https://cdn.shopify.com/s/files/1/0013/2510/5212/articles/8.22-COLUMBIAN-COFFEE.jpg?v=1566456985"),
             rating = 0,
-            comments = listOf("This is a Comment", "Second Comment"),
+            comments = listOf("This coffee tastes great"),
             roastinglvl = 3,
             origin = "Colombia",
             ingredients = listOf("Coffee beans", "Water", "Sugar")
@@ -59,7 +59,7 @@ fun getRecipes(): List<Recipe> {
                     "4. Pour the brewed coffee into cups or mugs.",
             images = listOf("https://cdn.shopify.com/s/files/1/0629/0328/8043/files/kc-blog-mundonovo-brunch-1024x634.jpg"),
             rating = 2,
-            comments = listOf("This is another Comment"),
+            comments = listOf(""),
             roastinglvl = 2,
             origin = "Brazil",
             ingredients = listOf("Coffee beans", "Water")
@@ -75,7 +75,7 @@ fun getRecipes(): List<Recipe> {
                     "4. Mix everything together until smooth.",
             images = listOf("https://afoodieworld.com/wp-content/uploads/2023/04/egg_coffee_nfrwfr.jpg"),
             rating = 3,
-            comments = listOf("Delicious coffee hot chocolate recipe!"),
+            comments = listOf(""),
             roastinglvl = 2,
             origin = "Vietnam",
             ingredients = listOf("Coffee", "Milk", "Cocoa", "Sugar")
@@ -91,7 +91,7 @@ fun getRecipes(): List<Recipe> {
                     "4. Serve the cappuccino immediately while it's still hot.\n",
             images = listOf("https://upload.wikimedia.org/wikipedia/commons/c/c8/Cappuccino_at_Sightglass_Coffee.jpg"),
             rating = 4,
-            comments = listOf("Refreshing coffee smoothie recipe!"),
+            comments = listOf(""),
             roastinglvl = 2,
             origin = "Italy",
             ingredients = listOf("Coffee", "Fruits", "Yogurt")
@@ -125,7 +125,7 @@ fun getRecipes(): List<Recipe> {
                     "5. Optionally, add sugar, milk,ice or other flavorings according to your preference.",
             images = listOf("https://jamiegeller.com/.image/t_share/MTY1NTI0OTQ1ODY5MzUwNDM4/coffee-bourbon-cocktail-horizontal.jpg"),
             rating = 4,
-            comments = listOf("Classic coffee-infused pasta recipe!"),
+            comments = listOf(""),
             roastinglvl = 3,
             origin = "Italy",
             ingredients = listOf("Coffee", "Water", "Pasta", "Sauce", "Cheese")
@@ -142,7 +142,7 @@ fun getRecipes(): List<Recipe> {
                     "5. Optionally, add sugar, milk or other flavorings according to your preference.",
             images = listOf("https://walmartsv.vtexassets.com/arquivos/ids/224134/Cafe-Pacas-Gourmet-Molido-454-Gr-1-3620.jpg?v=637805686087300000"),
             rating = 3,
-            comments = listOf("Moist and delicious coffee cake recipe!"),
+            comments = listOf(""),
             roastinglvl = 1,
             origin = "El Salvador",
             ingredients = listOf("Coffee", "Flour", "Sugar", "Butter", "Eggs", "Baking powder")
@@ -159,7 +159,7 @@ fun getRecipes(): List<Recipe> {
                     "5. Optionally, add sugar, milk or other flavorings according to your preference.",
             images = listOf("https://assets1.phonebooky.com/listings/assets/000/036/428/original/coffee4.jpg"),
             rating = 2,
-            comments = listOf("Tender and flavorful coffee-infused steak recipe!"),
+            comments = listOf(""),
             roastinglvl = 4,
             origin = "Guatemala",
             ingredients = listOf("Coffee", "Steak", "Salt", "Pepper", "Garlic powder", "Olive oil")
